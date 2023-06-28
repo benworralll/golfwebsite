@@ -1,0 +1,42 @@
+<!-- courses.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Golf Courses</title>
+</head>
+<body>
+    <h1>List of Golf Courses</h1>
+
+    <ul>
+        {% for course in courses %}
+        <li>{{ course.name }} - {{ course.location }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a New Course</h2>
+    <form action="{{ add_course_route }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" required><br>
+
+        <label for="description">description:</label>
+        <input type="text" name="description" id="description" required><br>
+
+        <label for="par">par:</label>
+        <input type="text" name="par" id="par" required><br>
+
+        <label for="yardage">yardage:</label>
+        <input type="text" name="yardage" id="yardage" required><br>
+
+        <label for="rating">rating:</label>
+        <input type="text" name="rating" id="rating" required><br>
+
+        <label for="slope">slope:</label>
+        <input type="text" name="slope" id="slope" required><br>
+
+        <input type="submit" value="Add Course">
+    </form>
+</body>
+</html>
