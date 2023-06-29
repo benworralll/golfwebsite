@@ -7,7 +7,7 @@ app = Flask (__name__)
 def home():
     return render_template("home.html", title = "Home Page")
 
-@app.route('/courses/add', methods=['POST'])
+@app.route('/course_added', methods=['POST'])
 def add_course():
     name = request.form['name']
     location = request.form['location']
@@ -22,36 +22,24 @@ def add_course():
     cursor = conn.cursor()
     cursor.execute('INSERT INTO Courses (name, location, description, par, yardage, rating, slope) VALUES (?, ?, ?, ?, ?, ?, ?)',
                    (name, location, description, par, yardage, rating, slope))
-    conn.commit
+    conn.commit()
 
 
-    return 'Course added successfully!'
+    return render_template('courses_added.html')
 
 @app.route('/courses')
 def courses():
-    # Assuming you have a list of courses to display
+
     courses = [...]
     
-    # Assuming you have a route for adding courses
-    add_course_route = '/courses/add'
+    add_course_route = '/course_added'
 
     return render_template('courses.html', courses=courses, add_course_route=add_course_route)
 
 
-# @app.route('/courses')
-# def courses():
-  #  conn = sqlite3.connect('golfweb.db')
-   # cursor = conn.cursor()
-    #cursor.execute('SELECT * FROM Courses')
-    #courses = cursor.fetchall()
-
-    # Process the courses data and display it on your website
-    # For example, you can pass the data to a template for rendering
-
-    return render_template('courses.html', courses=courses)
-
-
-
+@app.route("/course_added")
+def course_added():
+    return render_template ("course_added.html", title= "course added")
 
 @app.route("/all_courses")
 def all_courses():
@@ -66,7 +54,7 @@ def contact():
     return render_template ("contact.html", title= "Contact Page")
 
     
-@app.route('/golf/<int:id>')
+@app.route('/golf/<int:course_id>')
 def golf (id):
     conn = sqlite3.connect('golfweb.db')
     cur = conn.cursor()

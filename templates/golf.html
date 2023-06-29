@@ -2,7 +2,14 @@
 {% block content%}
 
 <h1> About {{golf [1]}} </h1> 
-<h2> {{golf [2]}}</h2> 
+<h2> Address</h2>
+<p> {{golf [2]}} </p>
+<h2> Description</h2>
+<p> {{golf [3]}} </p>
+<h2> Course Par</h2>
+<p> This has a par of {{golf [4]}}</p> 
+<h2> Yardage</h2>
+<p> This course has a total distance of {{golf [5]}} yards</p> 
 <img src = '{{golf[3]}}' /> 
 {{golf [4]}}
 {% endblock %}

@@ -1,15 +1,11 @@
 <!-- courses.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Golf Courses</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content%}
     <h1>List of Golf Courses</h1>
 
     <ul>
         {% for course in courses %}
-        <li>{{ course.name }} - {{ course.location }}</li>
+        <li>{{ course.name }} - {{ course.location }} - {{ course.description }} {{ course.location }} - {{ course.par }} - {{ course.rating }} - {{ course.slope }} </li>
         {% endfor %}
     </ul>
 
@@ -38,5 +34,4 @@
 
         <input type="submit" value="Add Course">
     </form>
-</body>
-</html>
+{% endblock %}
