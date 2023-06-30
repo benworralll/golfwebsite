@@ -25,21 +25,18 @@ def add_course():
     conn.commit()
 
 
-    return render_template('courses_added.html')
+    return ("Succesfully added your course!!")
 
 @app.route('/courses')
 def courses():
 
     courses = [...]
     
-    add_course_route = '/course_added'
+    add_course_route = '/course/add'
 
     return render_template('courses.html', courses=courses, add_course_route=add_course_route)
 
 
-@app.route("/course_added")
-def course_added():
-    return render_template ("course_added.html", title= "course added")
 
 @app.route("/all_courses")
 def all_courses():
@@ -54,7 +51,7 @@ def contact():
     return render_template ("contact.html", title= "Contact Page")
 
     
-@app.route('/golf/<int:course_id>')
+@app.route('/golf/<int:id>')
 def golf (id):
     conn = sqlite3.connect('golfweb.db')
     cur = conn.cursor()
