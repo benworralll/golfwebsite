@@ -1,11 +1,77 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session
+from werkzeug.security import check_password_hash
 import sqlite3
+import hashlib
+
+
+
 
 app = Flask (__name__)
+
+app.secret_key = 'test'
 
 @app.route('/')
 def home():
     return render_template("home.html", title = "Home Page")
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # Connect to the database
+        db = sqlite3.connect('golfweb.db')
+        cursor = db.cursor()
+
+        # Check if the username already exists
+        cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
+        user = cursor.fetchone()
+
+        if user:
+            error = 'Username already exists. Please choose a different username.'
+            return render_template('register.html', error=error)
+
+        # Insert the new user into the database
+        cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+        db.commit()
+
+        # Redirect to a success page or login page
+        return redirect('/login')
+
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # Connect to the database
+        db = sqlite3.connect('golfweb.db')
+        cursor = db.cursor()
+
+        # Retrieve the user's stored password hash based on the username
+        cursor.execute('SELECT password FROM users WHERE username = ?', (username,))
+        user = cursor.fetchone()
+
+        if user is None:
+            error = 'Invalid username or password.'
+            return render_template('login.html', error=error)
+
+        stored_password_hash = user[0]
+
+        # Compare the provided password with the stored password hash
+        if check_password_hash(stored_password_hash, password):
+            # Authentication successful
+            # Perform any necessary actions (e.g., redirect to the user's profile page)
+            return redirect('/profile')
+
+        error = 'Invalid username or password.'
+        return render_template('login.html', error=error)
+
+    return render_template('login.html')
+
 
 @app.route('/course_added', methods=['POST'])
 def add_course():
