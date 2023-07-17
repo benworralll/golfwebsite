@@ -1,62 +1,8 @@
 from flask import Flask, render_template, request, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
-import hashlib
-
 app = Flask(__name__)
 app.secret_key = 'secret'
-
-# Sample users for demonstration purposes
-users = [
-    {'id': 1, 'username': 'user1', 'password': generate_password_hash('password1')},
-    {'id': 2, 'username': 'user2', 'password': generate_password_hash('password2')}
-]
-
-
-@app.route('/')
-def home():
-    if 'user_id' in session:
-        return redirect('/profile')
-    else:
-        return redirect('/login')
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        # Find user by username
-        user = next((user for user in users if user['username'] == username), None)
-
-        if user and check_password_hash(user['password'], password):
-            # Authentication successful, store user ID in session
-            session['user_id'] = user['id']
-            return redirect('/profile')
-        else:
-            error = 'Invalid username or password.'
-            return render_template('login.html', error=error)
-
-    return render_template('login.html')
-
-
-@app.route('/profile')
-def profile():
-    if 'user_id' in session:
-        # Find user by ID
-        user = next((user for user in users if user['id'] == session['user_id']), None)
-        return render_template('profile.html', username=user['username'])
-    else:
-        return redirect('/login')
-
-
-@app.route('/logout')
-def logout():
-    # Clear the session and redirect to the login page
-    session.clear()
-    return redirect('/login')
-
 
 if __name__ == '__main__':
     app.run()
