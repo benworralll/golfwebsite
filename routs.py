@@ -3,15 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import hashlib
 
-
-
-
-app = Flask (__name__)
-
-
-
 app = Flask(__name__)
-app.secret_key = 'your-secret-key'
+app.secret_key = 'secret'
 
 # Sample users for demonstration purposes
 users = [
@@ -19,12 +12,14 @@ users = [
     {'id': 2, 'username': 'user2', 'password': generate_password_hash('password2')}
 ]
 
+
 @app.route('/')
 def home():
     if 'user_id' in session:
         return redirect('/profile')
     else:
         return redirect('/login')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -45,6 +40,7 @@ def login():
 
     return render_template('login.html')
 
+
 @app.route('/profile')
 def profile():
     if 'user_id' in session:
@@ -54,15 +50,16 @@ def profile():
     else:
         return redirect('/login')
 
+
 @app.route('/logout')
 def logout():
     # Clear the session and redirect to the login page
     session.clear()
     return redirect('/login')
 
+
 if __name__ == '__main__':
     app.run()
-
 
 
 @app.route('/course_added', methods=['POST'])
@@ -74,51 +71,49 @@ def add_course():
     yardage = int(request.form['yardage'])
     rating = float(request.form['rating'])
     slope = int(request.form['slope'])
-
-
     conn = sqlite3.connect('golfweb.db')
     cursor = conn.cursor()
     cursor.execute('INSERT INTO Courses (name, location, description, par, yardage, rating, slope) VALUES (?, ?, ?, ?, ?, ?, ?)',
                    (name, location, description, par, yardage, rating, slope))
     conn.commit()
-
-
     return ("Succesfully added your course!!")
+
 
 @app.route('/courses')
 def courses():
 
     courses = [...]
-    
+  
     add_course_route = '/course/add'
 
     return render_template('courses.html', courses=courses, add_course_route=add_course_route)
 
 
-
 @app.route("/all_courses")
 def all_courses():
-    conn= sqlite3.connect("golfweb.db")
+    conn = sqlite3.connect("golfweb.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM Courses")
     results = cur.fetchall()
-    return render_template("all_courses.html", results = results , title = "All Courses")
+    return render_template("all_courses.html", results=results, title="All Courses")
+
 
 @app.route("/contact")
 def contact():
-    return render_template ("contact.html", title= "Contact Page")
+    return render_template("contact.html", title="Contact Page")
 
     
 @app.route('/golf/<int:id>')
-def golf (id):
+def golf(id):
     conn = sqlite3.connect('golfweb.db')
     cur = conn.cursor()
-    cur.execute ('SELECT * FROM Courses WHERE id=?', (id,))
+    cur.execute('SELECT * FROM Courses WHERE id=?', (id,))
     golf = cur.fetchone()
     print(golf)
-    cur.execute('SELECT Name FROM Courses WHERE id=?', (golf [2],))
+    cur.execute('SELECT Name FROM Courses WHERE id=?', (golf[2],))
     review = cur.fetchone()
-    return render_template( 'golf.html', golf=golf , review=review)
+    return render_template('golf.html', golf=golf, review=review)
+
 
 @app.route('/course/<int:course_id>/reviews')
 def course_reviews(course_id):
@@ -129,9 +124,8 @@ def course_reviews(course_id):
     # Retrieve the reviews for the given course_id
     cursor.execute('SELECT * FROM reviews WHERE course_id = ?', (course_id,))
     reviews = cursor.fetchall()
-
-
     return render_template('reviews.html', reviews=reviews)
+
 
 @app.route('/course/<int:course_id>/reviews', methods=['POST'])
 def submit_review(course_id):
