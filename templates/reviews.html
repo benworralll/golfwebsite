@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Reviews</title>
+</head>
+<body>
+    <h1>Course Reviews</h1>
+    {% for review in reviews %}
+        <div class="review">
+            <p>Rating: {{ review.rating }}</p>
+            <p>Comment: {{ review.comment }}</p>
+            <p>Reviewer: {{ review.username }}</p>
+            <p>Date: {{ review.date }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
-from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import hashlib
 
@@ -8,38 +8,23 @@ import hashlib
 
 app = Flask (__name__)
 
-app.secret_key = 'test'
+
+
+app = Flask(__name__)
+app.secret_key = 'your-secret-key'
+
+# Sample users for demonstration purposes
+users = [
+    {'id': 1, 'username': 'user1', 'password': generate_password_hash('password1')},
+    {'id': 2, 'username': 'user2', 'password': generate_password_hash('password2')}
+]
 
 @app.route('/')
 def home():
-    return render_template("home.html", title = "Home Page")
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        # Connect to the database
-        db = sqlite3.connect('golfweb.db')
-        cursor = db.cursor()
-
-        # Check if the username already exists
-        cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
-        user = cursor.fetchone()
-
-        if user:
-            error = 'Username already exists. Please choose a different username.'
-            return render_template('register.html', error=error)
-
-        # Insert the new user into the database
-        cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
-        db.commit()
-
-        # Redirect to a success page or login page
+    if 'user_id' in session:
+        return redirect('/profile')
+    else:
         return redirect('/login')
-
-    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -47,30 +32,37 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # Connect to the database
-        db = sqlite3.connect('golfweb.db')
-        cursor = db.cursor()
+        # Find user by username
+        user = next((user for user in users if user['username'] == username), None)
 
-        # Retrieve the user's stored password hash based on the username
-        cursor.execute('SELECT password FROM users WHERE username = ?', (username,))
-        user = cursor.fetchone()
-
-        if user is None:
+        if user and check_password_hash(user['password'], password):
+            # Authentication successful, store user ID in session
+            session['user_id'] = user['id']
+            return redirect('/profile')
+        else:
             error = 'Invalid username or password.'
             return render_template('login.html', error=error)
 
-        stored_password_hash = user[0]
-
-        # Compare the provided password with the stored password hash
-        if check_password_hash(stored_password_hash, password):
-            # Authentication successful
-            # Perform any necessary actions (e.g., redirect to the user's profile page)
-            return redirect('/profile')
-
-        error = 'Invalid username or password.'
-        return render_template('login.html', error=error)
-
     return render_template('login.html')
+
+@app.route('/profile')
+def profile():
+    if 'user_id' in session:
+        # Find user by ID
+        user = next((user for user in users if user['id'] == session['user_id']), None)
+        return render_template('profile.html', username=user['username'])
+    else:
+        return redirect('/login')
+
+@app.route('/logout')
+def logout():
+    # Clear the session and redirect to the login page
+    session.clear()
+    return redirect('/login')
+
+if __name__ == '__main__':
+    app.run()
+
 
 
 @app.route('/course_added', methods=['POST'])
@@ -127,6 +119,38 @@ def golf (id):
     cur.execute('SELECT Name FROM Courses WHERE id=?', (golf [2],))
     review = cur.fetchone()
     return render_template( 'golf.html', golf=golf , review=review)
+
+@app.route('/course/<int:course_id>/reviews')
+def course_reviews(course_id):
+    # Connect to the database
+    db = sqlite3.connect('golfweb.db')
+    cursor = db.cursor()
+
+    # Retrieve the reviews for the given course_id
+    cursor.execute('SELECT * FROM reviews WHERE course_id = ?', (course_id,))
+    reviews = cursor.fetchall()
+
+
+    return render_template('reviews.html', reviews=reviews)
+
+@app.route('/course/<int:course_id>/reviews', methods=['POST'])
+def submit_review(course_id):
+    # Get the submitted review details from the request form
+    rating = request.form['rating']
+    comment = request.form['comment']
+
+    # Connect to the database
+    db = sqlite3.connect('golfweb.db')
+    cursor = db.cursor()
+
+    # Insert the new review into the database
+    cursor.execute(
+        'INSERT INTO reviews (course_id, user_id, rating, comment) VALUES (?, ?, ?, ?)',
+        (course_id, g.user['id'], rating, comment)
+    )
+    db.commit()
+
+    return redirect(f'/course/{course_id}/reviews')
 
 
 
