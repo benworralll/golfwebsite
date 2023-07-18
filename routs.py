@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+
 app = Flask(__name__)
-app.secret_key = 'secret'
+app.config.from_object("config")
 
-if __name__ == '__main__':
-    app.run()
 
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 @app.route('/course_added', methods=['POST'])
 def add_course():

@@ -3,11 +3,9 @@
 {% block content%}
     <h1>List of Golf Courses</h1>
 
-    <ul>
-        {% for course in courses %}
-        <li>{{ course.name }} - {{ course.location }} - {{ course.description }} {{ course.location }} - {{ course.par }} - {{ course.rating }} - {{ course.slope }} </li>
-        {% endfor %}
-    </ul>
+{% for item in results %}
+    <h1> <a> {{item[1]}}</a> </h1>
+{% endfor %}
 
     <h2>Add a New Course</h2>
     <form action="{{ add_course_route }}" method="POST">
