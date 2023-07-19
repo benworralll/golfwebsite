@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, request, redirect
 import sqlite3
 
 app = Flask(__name__)
@@ -10,31 +9,33 @@ app.config.from_object("config")
 def home():
     return render_template('home.html')
 
-@app.route('/course_added', methods=['POST'])
+@app.route("/course_added")
+def courses_added():
+    return render_template("course_added.html", title="Course Added")
+
+
+@app.route('/courses')
+def courses():
+    courses = [...]
+    add_course_route = '/course/add'
+    return render_template('courses.html', courses=courses, add_course_route=add_course_route)
+
+
+@app.route('/course/add', methods=['POST'])
 def add_course():
     name = request.form['name']
     location = request.form['location']
     description = request.form['description']
     par = int(request.form['par'])
     yardage = int(request.form['yardage'])
-    rating = float(request.form['rating'])
+    rating = float(request.form['rating']) 
     slope = int(request.form['slope'])
     conn = sqlite3.connect('golfweb.db')
     cursor = conn.cursor()
     cursor.execute('INSERT INTO Courses (name, location, description, par, yardage, rating, slope) VALUES (?, ?, ?, ?, ?, ?, ?)',
                    (name, location, description, par, yardage, rating, slope))
     conn.commit()
-    return ("Succesfully added your course!!")
-
-
-@app.route('/courses')
-def courses():
-
-    courses = [...]
-  
-    add_course_route = '/course/add'
-
-    return render_template('courses.html', courses=courses, add_course_route=add_course_route)
+    return redirect("http://127.0.0.1:5000/course_added")
 
 
 @app.route("/all_courses")
