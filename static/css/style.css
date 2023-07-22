@@ -8,12 +8,14 @@
 }
 
 h1 {
-    font-family: 'Kalam', cursive;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 60px; 
     text-align: center;
-    padding: 0;
+    padding: 25px;
     margin: 0;
-    color: #ff0000; 
+    border: 3px solid blue; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
+    border-radius: 25px;
+    background-color: antiquewhite;
   }
 
 p {
@@ -24,19 +26,8 @@ p {
     color: black;
 }
 
-.column {
-    float: left;
-    width: 33.33%;
-    border: black;
-    border-radius: 30px;
-  }
-  
 
-.border1
-    {
-      border: 2px solid black;
-      border-bottom:0px;
-    }
+  
  /** **************
  ** Header block **
  ******************/
@@ -50,6 +41,20 @@ p {
  /** ********************
  ** MAIN Content block **
  ***********************/
+
+/* collums help from https://www.w3schools.com/howto/howto_css_two_columns.asp */
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 
  /** ***************
  ** Footer Block **

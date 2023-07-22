@@ -2,10 +2,16 @@
 {% block content %}
 {% for item in results %}
 <!-- Putting the information into rows, Outline coppied from https://www.w3schools.com/howto/howto_css_three_columns.asp -->
-<div class="row">  
-    <div class="column"><p><a href="/golf/{{item[0]}}"> {{item[1]}}</a></p> </div>
-    <div class="column"><p>{{item[2]}}</p></div>
-    <div class="column"><p>Test</p></div>
+
+  <div class="row">
+    <div class="column" style="background-color:#aaa;">
+      <p><a href="/golf/{{item[0]}}">{{item[1]}}</a></p>
+      <p>{{item[8]}}</p>
+    </div>
+    <div class="column" style="background-color:#bbb;">
+      <p>{{item[2]}}</p>
+      <p>Some text..</p>
+    </div>
   </div>
 {% endfor %}
 {% endblock%}
