@@ -15,7 +15,7 @@ h1 {
     margin: 0;
     border: 3px solid blue; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
     border-radius: 25px;
-    background-color: antiquewhite;
+    background-color: greenyellow;
   }
 
 p {
@@ -26,6 +26,14 @@ p {
     color: black;
 }
 
+h6 {
+    font-size: 20px;
+    padding: 25px;
+    margin: 0;
+    border: 3px solid green; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
+    border-radius: 35px;
+    background-color: greenyellow;
+}
 
   
  /** **************

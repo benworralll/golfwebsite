@@ -4,14 +4,17 @@
 <!-- Putting the information into rows, Outline coppied from https://www.w3schools.com/howto/howto_css_three_columns.asp -->
 
   <div class="row">
-    <div class="column" style="background-color:#aaa;">
-      <p><a href="/golf/{{item[0]}}">{{item[1]}}</a></p>
-      <p>{{item[8]}}</p>
+    <div class="column" style="background-color:greenyellow;">
+      <h2><a href="/golf/{{item[0]}}">{{item[1]}}</a></h2>
+      <p><a href="/golf/{{item[0]}}"><img src="{{ item[8] }}" style="float:none;"  width="400" height="340" /></a></p>
     </div>
-    <div class="column" style="background-color:#bbb;">
-      <p>{{item[2]}}</p>
-      <p>Some text..</p>
+    <div class="column" style="background-color: greenyellow;">
+      <br>
+      <h6>Address: {{item[2]}}</h6>
+      <br>
+      <h6>{{item[3]}}</h6>
     </div>
   </div>
+  <hr color="green">
 {% endfor %}
 {% endblock%}
