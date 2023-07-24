@@ -12,20 +12,6 @@
 <img src = '{{golf[3]}}' /> 
 
 
-<h2>add review</h2>
-<form action="{{ add_review_route }}" method="POST">
-    <label for="Username">username:</label>
-    <input type="text" name="username" id="username" required><br>
-
-    <label for="rating">rating:</label>
-    <input type="text" name="rating" id="rating" required><br>
-
-    <label for="comment">comment:</label>
-    <input type="text" name="comment" id="comment" required><br>
-
-    <input type="submit" value="Submit review">
-</form>
-
 <h1> Course reviews</h1>
 <p> {{review [2]}} </p>
 {% endblock %}

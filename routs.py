@@ -3,6 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 app.config.from_object("config")
+app.config['DATABASE'] = 'golfweb.db'
 
 
 @app.route('/')
@@ -17,8 +18,35 @@ def courses_added():
 
 @app.route("/reviews")
 def reviews():
-    add_review_route = '/review/add'
-    return render_template('reviews.html', reviews=reviews, add_review_route=add_review_route)
+    return render_template("reviews.html", title="Reviews")
+
+
+@app.route('/')
+def reviews_page():
+    # Retrieve reviews from the database
+    conn = sqlite3.connect('golfweb.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM reviews')
+    reviews = cur.fetchall()
+
+    return render_template('reviews.html', reviews=reviews)
+
+
+@app.route('/submit_review', methods=['POST'])
+def submit_review():
+    course_id = int(request.form['course_id'])
+    username = request.form.get('username', False)
+    rating = int(request.form['rating'])
+    review = request.form['review']
+
+    # Store the review in the database
+    conn = sqlite3.connect('golfweb.db')
+    cur = conn.cursor()
+    cur.execute('INSERT INTO reviews (course_id, username, rating, comment) VALUES (?, ?, ?, ?)',
+                   (course_id, username, rating, review))
+    conn.commit()
+
+    return render_template('thank_you.html')
 
 
 @app.route('/courses')
@@ -41,20 +69,6 @@ def add_course():
     cursor = conn.cursor()
     cursor.execute('INSERT INTO Courses (name, location, description, par, yardage, rating, slope) VALUES (?, ?, ?, ?, ?, ?, ?)',
                    (name, location, description, par, yardage, rating, slope))
-    conn.commit()
-    return redirect("http://127.0.0.1:5000/course_added")
-
-
-@app.route('/review/add', methods=['POST'])
-def add_review():
-    course_id = request.form['course_id']
-    username = request.form['username']
-    rating = request.form['rating']
-    comment = request.form['comment']
-    conn = sqlite3.connect('golfweb.db')
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO reviews (course_id, username, rating, comment) VALUES (?, ?, ?, ?)',
-                   (course_id, username, rating, comment,))
     conn.commit()
     return redirect("http://127.0.0.1:5000/course_added")
 
@@ -84,49 +98,6 @@ def golf(id):
     review = cur.fetchone()
     return render_template('golf.html', golf=golf, review=review)
 
-
-@app.route('/review/<int:id>')
-def review(id):
-    conn = sqlite3.connect('golfweb.db')
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM reviews WHERE id=?', (id,))
-    review = cur.fetchone()
-    print(review)
-    cur.execute('SELECT username FROM reviews WHERE id=?', (review[2],))
-    review = cur.fetchone()
-    return render_template('golf.html', review=review)
-
-
-@app.route('/course/<int:course_id>/reviews')
-def course_reviews(course_id):
-    # Connect to the database
-    db = sqlite3.connect('golfweb.db')
-    cursor = db.cursor()
-
-    # Retrieve the reviews for the given course_id
-    cursor.execute('SELECT * FROM reviews WHERE course_id = ?', (course_id,))
-    reviews = cursor.fetchall()
-    return render_template('reviews.html', reviews=reviews)
-
-
-@app.route('/course/<int:course_id>/reviews', methods=['POST'])
-def submit_review(course_id):
-    # Get the submitted review details from the request form
-    rating = request.form['rating']
-    comment = request.form['comment']
-
-    # Connect to the database
-    db = sqlite3.connect('golfweb.db')
-    cursor = db.cursor()
-
-    # Insert the new review into the database
-    cursor.execute(
-        'INSERT INTO reviews (course_id, user_id, rating, comment) VALUES (?, ?, ?, ?)',
-        (course_id, g.user['id'], rating, comment)
-    )
-    db.commit()
-
-    return redirect(f'/course/{course_id}/reviews')
 
 
 if __name__ == "__main__":
