@@ -94,10 +94,10 @@ def golf(id):
     cur.execute('SELECT * FROM Courses WHERE id=?', (id,))
     golf = cur.fetchone()
     print(golf)
-    cur.execute('SELECT Name FROM Courses WHERE id=?', (golf[2],))
-    review = cur.fetchone()
-    return render_template('golf.html', golf=golf, review=review)
+    cur.execute('SELECT * FROM reviews WHERE course_id=?', (id,))
+    reviews = cur.fetchall()
 
+    return render_template('golf.html', golf=golf, reviews=reviews)
 
 
 if __name__ == "__main__":

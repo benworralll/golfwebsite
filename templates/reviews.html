@@ -3,7 +3,7 @@
 {% block content%}
     <h1>List of Golf Courses</h1>
     <h2> </h2>
-
+<img src="/static/images/courselist.png" class="image1"/> 
     <div class="add-review">
         <h2>Add Your Own Review</h2>
         <form action="/submit_review" method="POST">
@@ -23,22 +23,5 @@
         </form>
     </div>
 
- <!--  <h2>Add a New Course</h2>
-    <form action="{{ add_review_route }}" methods="POST">
-        
-        <label for="course_id">Course number (between 3 and 21):</label>
-        <input type="range" id="course_id" name="course_id" min="3" max="21">
 
-        <label for="Username">username:</label>
-        <input type="text" name="username" id="username" required><br>
-
-        <label for="rating">rating:</label>
-        <input type="text" name="rating" id="rating" required><br>
-
-        <label for="comment">comment:</label>
-        <input type="text" name="comment" id="comment" required><br>
-
-        <input type="submit" value="Add Course">
-    </form>
---> 
 {% endblock %}

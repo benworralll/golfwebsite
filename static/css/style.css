@@ -75,13 +75,21 @@ h6 {
     clear: both;
   }
 
-img {
+.image2 {
     border: 3px solid yellowgreen;
     border-radius: 4px;
     padding: 3px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+
+.image1  {
+    padding-right: 600px;
+    float: right;
+    width: 250px;
+    height: 300px;
+
   }
 
   .container {

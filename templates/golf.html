@@ -1,17 +1,28 @@
 {% extends 'layout.html' %}
 {% block content%}
-<h1> About {{golf [1]}} </h1> 
-<h2> Address</h2>
-<p> {{golf [2]}} </p>
-<h2> Description</h2>
-<p> {{golf [3]}} </p>
-<h2> Course Par</h2>
-<p> This has a par of {{golf [4]}}</p> 
-<h2> Yardage</h2>
-<p> This course has a total distance of {{golf [5]}} yards</p> 
-<img src = '{{golf[3]}}' /> 
-
-
-<h1> Course reviews</h1>
-<p> {{review [2]}} </p>
+<h1>About {{ golf[1] }}</h1>
+<h2>Address</h2>
+<p>{{ golf[2] }}</p>
+<h2>Description</h2>
+<p>{{ golf[3] }}</p>
+<h2>Course Par</h2>
+<p>This has a par of {{ golf[4] }}</p>
+<h2>Yardage</h2>
+<p>This course has a total distance of {{ golf[5] }} yards</p>
+<img src='{{ golf[8] }}' class="image2" height="720" width="1060"/>
+<h1>Reviews</h2>
+{% for review in reviews %}
+    <ol>
+        <h2>Course: {{golf[1]}}</h2>
+        <p>This course has been given a rating of {{ review[3] }}/10 by {{ review[2]}}</p>
+        <p>{{ review['review'] }}</p>
+        <hr>
+        <!-- Add other review details as needed -->
+    </ol>
+{% endfor %}
+{% if reviews %}
+    <h2>test123{{ reviews[0]['review'] }}</h2>
+{% else %}
+    <p>No reviews available for this course.</p>
+{% endif %}
 {% endblock %}
