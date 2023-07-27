@@ -8,15 +8,63 @@
 }
 
 h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 60px; 
+  text-align: center;
+  padding: 25px;
+  margin: 0;
+  border: 3px solid blue; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
+  border-radius: 25px;
+  background-color: greenyellow;
+}
+
+h2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 30px; 
+  text-align: left;
+  padding: 25px;
+  text-decoration: underline;
+  margin: 0;
+}
+
+
+h3 {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 60px; 
-    text-align: center;
+    font-size: 20px; 
+    text-align: left;
     padding: 25px;
+    text-decoration: underline;
     margin: 0;
-    border: 3px solid blue; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
-    border-radius: 25px;
-    background-color: greenyellow;
-  }
+}
+
+h4 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 15px; 
+  text-align: left;
+  padding: 20px;
+  margin: 0;
+}
+
+
+h5 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 20px;
+  padding: 25px;
+  margin: 0;
+  border: 3px solid blue; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
+  border-radius: 25px;
+  background-color: yellowgreen;
+}
+
+
+h6 {
+  font-size: 20px;
+  padding: 25px;
+  margin: 0;
+  border: 3px solid green; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
+  border-radius: 35px;
+  background-color: greenyellow;
+}
 
 p {
     font-family: Arial, Helvetica, sans-serif;
@@ -26,31 +74,12 @@ p {
     color: black;
 }
 
-h5 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 20px;
-    padding: 25px;
-    margin: 0;
-    border: 3px solid blue; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
-    border-radius: 25px;
-    background-color: yellowgreen;
-}
 
-
-h6 {
-    font-size: 20px;
-    padding: 25px;
-    margin: 0;
-    border: 3px solid green; /** Boarder help from https://www.w3schools.com/cssref/css_pr_border-block-end-color.php **/
-    border-radius: 35px;
-    background-color: greenyellow;
-}
 
   
  /** **************
  ** Header block **
  ******************/
-
 
  /** ******************
  ** Navigation block **
@@ -137,6 +166,8 @@ h6 {
     color: black;
     padding: 16px 32px;
   }
+
+
  /** ***************
  ** Footer Block **
  ******************/
