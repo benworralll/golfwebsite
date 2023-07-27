@@ -2,7 +2,7 @@
 {% block content %}
 {% for item in results %}
 <!-- Putting the information into rows, Outline coppied from https://www.w3schools.com/howto/howto_css_three_columns.asp -->
-
+<div style="background-color: greenyellow" >
   <div class="row">
     <div class="column" style="background-color:greenyellow;">
       <h2><a href="/golf/{{item[0]}}">{{item[1]}}</a></h2>
@@ -16,5 +16,6 @@
     </div>
   </div>
   <hr color="green">
+</div>
 {% endfor %}
 {% endblock%}
