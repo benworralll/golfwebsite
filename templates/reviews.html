@@ -1,14 +1,15 @@
-<!-- reviews.html -->
-{% extends "layout.html" %}
-{% block content%}
-    <h1>List of Golf Courses</h1>
+
+{% extends "layout.html" %} <!-- Extends the base layout template -->
+{% block content%} <!-- Start of the "content" block to inject content into the base layout -->
+    <h1>List of Golf Courses</h1> 
     <h2> </h2>
 <img src="/static/images/courselist.png" class="image1"/> 
-    <div class="add-review">
+    <div class="add-review"> <!-- Division for the "Add Your Own Review" section -->
         <h2>Add Your Own Review</h2>
-        <form action="/submit_review" method="POST">
-            <label for="course_id">Course Number**</label>
-            <input type="number" id="course_id" name="course_id" required min="2" max="22"><br><br>
+        <form action="/submit_review" method="POST"> <!-- Form for submitting a review -->
+            <label for="course_id">Course Number**</label> <!-- Label for the course ID input -->
+            <input type="number" id="course_id" name="course_id" required min="2" max="22"><br><br> <!-- Course ID input with a number type, required attribute, and min/max values -->
+
 
             <label for="username">username:</label>
             <input type="text" name="username" id="username" required><br>
@@ -19,9 +20,9 @@
             <label for="review">Review:</label>
             <textarea id="review" name="review" required></textarea><br><br>
 
-            <input type="submit" value="Submit Review">
-        </form>
-    </div>
+            <input type="submit" value="Submit Review"> <!-- Submit button for the review form -->
+        </form> <!-- End of the review form -->
+    </div> <!-- End of the "Add Your Own Review" section -->
 
 
 {% endblock %}
