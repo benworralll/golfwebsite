@@ -6,21 +6,25 @@ app.config.from_object("config")
 app.config['DATABASE'] = 'golfweb.db'
 
 
+# Home page route
 @app.route('/')
 def home():
     return render_template('home.html')
 
 
+# Route for displaying a "Course Added" message
 @app.route("/course_added")
 def courses_added():
     return render_template("course_added.html", title="Course Added")
 
 
+# Route for displaying the "Reviews" page
 @app.route("/reviews")
 def reviews():
     return render_template("reviews.html", title="Reviews")
 
 
+# Route for displaying all reviews from the database
 @app.route('/')
 def reviews_page():
     # Retrieve reviews from the database
@@ -32,8 +36,10 @@ def reviews_page():
     return render_template('reviews.html', reviews=reviews)
 
 
+# Route for submitting a review for a golf course
 @app.route('/submit_review', methods=['POST'])
 def submit_review():
+    # Retrieve review details from the form
     course_id = int(request.form['course_id'])
     username = request.form.get('username', False)
     rating = int(request.form['rating'])
@@ -49,15 +55,18 @@ def submit_review():
     return render_template('thank_you.html')
 
 
+# Route for displaying a list of golf courses
 @app.route('/courses')
 def courses():
-    courses = [...]
+    courses = [...] # Placeholder for the list of courses
     add_course_route = '/course/add'
     return render_template('courses.html', courses=courses, add_course_route=add_course_route)
 
 
+# Route for adding a new golf course
 @app.route('/course/add', methods=['POST'])
 def add_course():
+    # Retrieve course details from the form
     name = request.form['name']
     location = request.form['location']
     description = request.form['description']
@@ -65,6 +74,8 @@ def add_course():
     yardage = int(request.form['yardage'])
     rating = float(request.form['rating'])
     slope = int(request.form['slope'])
+
+    # Store the new course in the database
     conn = sqlite3.connect('golfweb.db')
     cursor = conn.cursor()
     cursor.execute('INSERT INTO Courses (name, location, description, par, yardage, rating, slope) VALUES (?, ?, ?, ?, ?, ?, ?)',
@@ -73,6 +84,7 @@ def add_course():
     return redirect("http://127.0.0.1:5000/course_added")
 
 
+# Route for displaying all courses in the database
 @app.route("/all_courses")
 def all_courses():
     conn = sqlite3.connect("golfweb.db")
@@ -82,11 +94,13 @@ def all_courses():
     return render_template("all_courses.html", results=results, title="All Courses")
 
 
+# Route for displaying the "Contact" page
 @app.route("/contact")
 def contact():
     return render_template("contact.html", title="Contact Page")
 
 
+# Route for displaying detailed information about a specific golf course
 @app.route('/golf/<int:id>')
 def golf(id):
     conn = sqlite3.connect('golfweb.db')
