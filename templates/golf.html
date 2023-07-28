@@ -27,10 +27,10 @@
 {% endfor %}
 {% if reviews %}
     <h2></h2>
-{% else %}
-    <ol style="border: 7px solid greenyellow; border-radius: 5px;"> 
-    <h4>No reviews available for this course.</h4>
-    <h4><a href = "/reviews"> Click here to submit review | Use course number {{golf[0]}}</a></h4>
+{% else %} <!-- If no reviews yet these actions will go instead of above-->
+    <ol style="border: 7px solid greenyellow; border-radius: 5px;"> <!-- Boarder for text-->
+    <h4>No reviews available for this course.</h4>  
+    <h4><a href = "/reviews"> Click here to submit review | Use course number {{golf[0]}}</a></h4> <!-- Text with link to reviews page so user can submit their own review when no review is present.-->
     </ol>
 {% endif %}
 {% endblock %}

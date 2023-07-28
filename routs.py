@@ -30,7 +30,7 @@ def reviews_page():
     # Retrieve reviews from the database
     conn = sqlite3.connect('golfweb.db')
     cur = conn.cursor()
-    cur.execute('SELECT * FROM reviews')
+    cur.execute('SELECT * FROM reviews')  # Executed an SQL Query to retreave data from reviews table
     reviews = cur.fetchall()
 
     return render_template('reviews.html', reviews=reviews)
@@ -87,9 +87,9 @@ def add_course():
 # Route for displaying all courses in the database
 @app.route("/all_courses")
 def all_courses():
-    conn = sqlite3.connect("golfweb.db")
+    conn = sqlite3.connect("golfweb.db") # Connection to the database
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Courses")
+    cur.execute("SELECT * FROM Courses") # Executed an SQL query to retrieve data from Courses table
     results = cur.fetchall()
     return render_template("all_courses.html", results=results, title="All Courses")
 
@@ -103,15 +103,15 @@ def contact():
 # Route for displaying detailed information about a specific golf course
 @app.route('/golf/<int:id>')
 def golf(id):
-    conn = sqlite3.connect('golfweb.db')
+    conn = sqlite3.connect('golfweb.db')  # Connection to the database
     cur = conn.cursor()
-    cur.execute('SELECT * FROM Courses WHERE id=?', (id,))
+    cur.execute('SELECT * FROM Courses WHERE id=?', (id,))  # Executed a SQL query to retrieve data from the courses table for the specified id
     golf = cur.fetchone()
     print(golf)
-    cur.execute('SELECT * FROM reviews WHERE course_id=?', (id,))
+    cur.execute('SELECT * FROM reviews WHERE course_id=?', (id,))  # Executed a SQL query to retrieve data from reviews table for the spesific course id
     reviews = cur.fetchall()
 
-    return render_template('golf.html', golf=golf, reviews=reviews)
+    return render_template('golf.html', golf=golf, reviews=reviews) 
 
 
 if __name__ == "__main__":
