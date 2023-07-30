@@ -28,7 +28,7 @@ def reviews():
 @app.route('/')
 def reviews_page():
     # Retrieve reviews from the database
-    conn = sqlite3.connect('golfweb.db')
+    conn = sqlite3.connect('golfweb.db')  # Connecting to tdatabase
     cur = conn.cursor()
     cur.execute('SELECT * FROM reviews')  # Executed an SQL Query to retreave data from reviews table
     reviews = cur.fetchall()
@@ -87,9 +87,9 @@ def add_course():
 # Route for displaying all courses in the database
 @app.route("/all_courses")
 def all_courses():
-    conn = sqlite3.connect("golfweb.db") # Connection to the database
+    conn = sqlite3.connect("golfweb.db")  # Connection to the database
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Courses") # Executed an SQL query to retrieve data from Courses table
+    cur.execute("SELECT * FROM Courses")  # Executed an SQL query to retrieve data from Courses table
     results = cur.fetchall()
     return render_template("all_courses.html", results=results, title="All Courses")
 
