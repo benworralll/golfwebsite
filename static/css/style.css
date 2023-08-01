@@ -85,7 +85,34 @@ p {
  ** Navigation block **
  *********************/
 
+ ul {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: greenyellow;
+}
 
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to greenyellow on hover */
+li a:hover {
+  background-color: black;
+  color :greenyellow;
+}
  /** ********************
  ** MAIN Content block **
  ***********************/
@@ -186,4 +213,8 @@ p {
  ** Footer Block **
  ******************/
 
- tenor-gif-embed
+
+.footer1{
+  color: yellowgreen;
+  text-align: center;
+}
