@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, abort
 import sqlite3
 
 app = Flask(__name__)
@@ -94,10 +94,10 @@ def all_courses():
     return render_template("all_courses.html", results=results, title="All Courses")
 
 
-# Route for displaying the "Contact" page
-@app.route("/contact")
-def contact():
-    return render_template("contact.html", title="Contact Page")
+# Route for displaying the "About" page
+@app.route("/about")
+def about():
+    return render_template("about.html", title="About Page")
 
 
 # Route for displaying detailed information about a specific golf course
@@ -105,14 +105,21 @@ def contact():
 def golf(id):
     conn = sqlite3.connect('golfweb.db')  # Connection to the database
     cur = conn.cursor()
-    cur.execute('SELECT * FROM Courses WHERE id=?', (id,))  # Executed a SQL query to retrieve data from the courses table for the specified id
+    cur.execute('SELECT * FROM courses WHERE id=?', (id,))  # Executed a SQL query to retrieve data from the courses table for the specified id
     golf = cur.fetchone()
-    print(golf)
+    if golf is None:
+        # If the golf course doesn't exist, redirect to the 404 page
+        abort(404)
     cur.execute('SELECT * FROM reviews WHERE course_id=?', (id,))  # Executed a SQL query to retrieve data from reviews table for the spesific course id
     reviews = cur.fetchall()
 
     return render_template('golf.html', golf=golf, reviews=reviews) 
 
+
+# 404 Error Handler
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 if __name__ == "__main__":
     app.run(debug=True)

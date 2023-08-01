@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block content%}
+
 <h1>About {{ golf[1] }}</h1> <!-- Taking the Course name from database and displaying it-->
 <h2>Address</h2>
 <h4>{{ golf[2] }}</h4> <!-- Getting the adress of the course from the database and displaying it-->
@@ -15,6 +16,7 @@
 <h4>This has a slope of {{ golf[6] }}</h4> <!-- Getting slope of course and displaing with template text-->
 
 <img src='{{ golf[8] }}' class="image2" height="720" width="1060"/> <!-- Getting image from database and displaying it on the course page-->
+
 <h1>Reviews</h2>
 {% for review in reviews %}
     <ol style="border: 7px solid greenyellow; border-radius: 5px;"> <!-- Giving boarder to each indavidual review to show the difference between reveiws -->
