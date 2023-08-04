@@ -2,13 +2,13 @@
 {% block content %}
 {% for item in results %}
 <!-- Putting the information into rows, Outline coppied from https://www.w3schools.com/howto/howto_css_three_columns.asp -->
-<div style="background-color: greenyellow" > <!-- Background of collums-->
+<div> <!-- Background of collums-->
   <div class="row"> 
-    <div class="column" style="background-color:greenyellow;"> <!-- Class "Column" links to style sheet and the background is set-->
+    <div class="column"> <!-- Class "Column" links to style sheet and the background is set-->
       <h2><a href="/golf/{{item[0]}}">{{item[1]}}</a></h2> <!-- Link to page with text of course name-->
       <p><a href="/golf/{{item[0]}}"><img src="{{ item[8] }}" class="image2" style="float:none;"  width="400" height="340" /></a></p> <!-- A small image that user can click on, class="image2" links to style sheet-->
     </div>
-    <div class="column" style="background-color: greenyellow;"> <!-- Second row of column & background set-->
+    <div class="column"> <!-- Second row of column & background set-->
       <br>
       <h6>Address: {{item[2]}}</h6> <!-- displaying the adress of the course with data from website-->
       <br>
