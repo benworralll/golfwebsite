@@ -1,20 +1,20 @@
 {% extends 'layout.html' %}
 {% block content%}
-
-<h1>About {{ golf[1] }}</h1> <!-- Taking the Course name from database and displaying it-->
-<h2>Address</h2>
-<h4>{{ golf[2] }}</h4> <!-- Getting the adress of the course from the database and displaying it-->
-<h2>Description</h2>
-<h4>{{ golf[3] }}</h4> <!-- Getting descriopion of course from database-->
-<h2>Course Par</h2>
-<h4>This has a par of {{ golf[4] }}</h4> <!-- Getting par of course from databse and displaying it with template text-->
-<h2>Yardage</h2>
-<h4>This course has a total distance of {{ golf[5] }} yards</h4> <!-- Getting distance of course and displaying it with template text-->
-<h2>Course Rating</h2>
-<h4>This has a rating of {{ golf[5] }}</h4> <!-- Getting course rating and displaying with template text-->
-<h2>Course Slope</h2>
-<h4>This has a slope of {{ golf[6] }}</h4> <!-- Getting slope of course and displaing with template text-->
-
+<div class="container2" style="text-align: center;">
+    <h2>About {{ golf[1] }}</h2> <!-- Taking the Course name from database and displaying it-->
+    <h3>Address</h3>
+    <p>{{ golf[2] }}</p> <!-- Getting the adress of the course from the database and displaying it-->
+    <h3>Description</h3>
+    <p>{{ golf[3] }}</p> <!-- Getting descriopion of course from database-->
+    <h3>Course Par<h3>
+    <p>This has a par of {{ golf[4] }}</p> <!-- Getting par of course from databse and displaying it with template text-->
+    <h3>Yardage</h3>
+    <p>This course has a total distance of {{ golf[5] }} yards</p> <!-- Getting distance of course and displaying it with template text-->
+    <h3>Course Rating</h3>
+    <p>This has a rating of {{ golf[5] }}<p> <!-- Getting course rating and displaying with template text-->
+    <h3>Course Slope</h3>
+    <p>This has a slope of {{ golf[6] }}</p> <!-- Getting slope of course and displaing with template text-->
+</div>
 <img src='{{ golf[8] }}' class="image2" height="720" width="1060"/> <!-- Getting image from database and displaying it on the course page-->
 
 <h1>Reviews</h2>

@@ -22,7 +22,7 @@ h1 {
 
 h2 {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 25px; 
+  font-size: 33px; 
   text-align: center;
   padding: 15px;
   margin: 0;
@@ -36,7 +36,7 @@ h3 {
   text-align: center;
   padding: 20px;
   margin: 0;
-  color: #003804;
+  color: #008C50;
 }
 
 h4 {
@@ -129,10 +129,45 @@ li a:hover {
  ***********************/
 
 .container1{
-  max-width: 60rem;
+  max-width: 60rem; /** This code stops the text from being to wide and dificult to read (From kevin powell)**/
   margin-left: auto;
   margin-right: auto;
 }
+
+.container2{
+  max-width: 60rem; /** This code stops the text from being to wide and dificult to read (From kevin powell)**/
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+/* Link colors */
+a:link {
+  color: #003804;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #003804;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0CE8A3;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+
+
 
 /* collums help from https://www.w3schools.com/howto/howto_css_two_columns.asp */
 /* Create three equal columns that floats next to each other */
